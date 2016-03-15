@@ -1,0 +1,81 @@
+#!/bin/bash
+
+#cleans old log files and runs autoremove and autoclean
+
+#mmartin
+
+
+#### COLOR SETTINGS ####
+BLACK=$(tput setaf 0 && tput bold)
+RED=$(tput setaf 1 && tput bold)
+GREEN=$(tput setaf 2 && tput bold)
+YELLOW=$(tput setaf 3 && tput bold)
+BLUE=$(tput setaf 4 && tput bold)
+MAGENTA=$(tput setaf 5 && tput bold)
+CYAN=$(tput setaf 6 && tput bold)
+WHITE=$(tput setaf 7 && tput bold)
+BLACKbg=$(tput setab 0 && tput bold)
+REDbg=$(tput setab 1 && tput bold)
+GREENbg=$(tput setab 2 && tput bold)
+YELLOWbg=$(tput setab 3 && tput bold)
+BLUEbg=$(tput setab 4 && tput dim)
+MAGENTAbg=$(tput setab 5 && tput bold)
+CYANbg=$(tput setab 6 && tput bold)
+WHITEbg=$(tput setab 7 && tput bold)
+STAND=$(tput sgr0)
+
+echo
+echo $CYAN "CLEANING STARTING"$STAND;
+echo
+sudo find /var/log -type f -name "*.gz" 
+sudo find /var/log -type f -name "*.gz" -delete
+sudo apt-get -f install
+sudo apt-get autoremove 
+sudo apt-get -y autoclean
+
+#remove tmp files
+echo $MAGENTA "Finding Temp Files......"$STAND
+sudo find /tmp/*
+sudo rm -fr /tmp/*
+echo
+echo $RED "Deleting Temp Files       ...[OK]"$STAND;
+
+#remove thumbnails
+sudo rm -rf ~/.thumbnails/*
+echo $RED "Deleting Thumbnails       ...[OK]"$STAND;
+
+#empty Trash
+echo $GREEN "Looking in the Trash....."$STAND;
+sudo find ~/.local/share/Trash/*
+echo $MAGENTA "Empty Trash?   ...[y/n]"$STAND;
+read x
+if [ "$x" = "y" ]
+then  # do the dangerous stuff
+sudo rm -rf ~/.local/share/Trash/*
+printf $RED "EMPTYNG TRASH           ...[OK]"$STAND;
+
+fi
+echo
+
+#browser cache clean
+echo $MAGENTA "Empty Browser Cache?   ...[y/n]"$STAND;
+read x
+if [ "$x" = "y" ]
+then  # do the dangerous stuff
+echo
+sudo rm -rf ~/.mozilla/firefox/*.default/Cache/* #Firefox/Iceweasel
+echo
+printf $RED"Deleting FIREFOX/ICEWEASEL Cache	...[OK]";
+echo
+sudo rm -rf ~/.cache/google-chrome/Default/Cache/* #Google Chrome
+printf $RED"Deleting GOOGLE CHROME Cache		...[OK]";
+
+fi
+echo
+#gconf cleaner
+echo
+echo $RED "Launching gconf Cleaner....."$STAND;
+gconf-cleaner 
+echo
+echo $CYAN "CLEANING FINISHED!"$STAND;
+echo
