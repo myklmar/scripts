@@ -1,0 +1,14 @@
+#!/bin/bash
+#yes/no switch
+#mmartin
+
+echo are you sure? [y/n]
+read x
+if [ "$x" = "y" ]
+then
+  # do the dangerous stuff
+   #sudo rm -rf ~/test.txt
+
+fi
+
+#continue with program
