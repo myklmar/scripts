@@ -1,0 +1,13 @@
+#!/bin/bash
+# mmartin
+# To download from YouTube or other sites either as video or mp3
+# get url of required download first.
+
+read -r -p "INPUT URL TO DOWNLOAD " url;
+
+youtube-dl -F "$url"
+
+read -r -p "ENTER REQUIRED OPTIONS. " nos;
+
+youtube-dl -f "$nos" "$url"
+
