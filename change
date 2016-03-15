@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# mmartin
+echo -e "\e[33mWHAT DIRECTORY?  (use full path)\e[0m"
+read -r directory
+cd "$path/$directory" && ls

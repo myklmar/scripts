@@ -1,0 +1,9 @@
+#!/bin/bash
+# mmartin
+# to find own scripts in usr/local/bin  and list in a file
+
+cd /usr/local/bin
+find $path | grep -Ri "mmartin" > ~/Documents/scripts/ownscripts.txt
+
+ 
+ 

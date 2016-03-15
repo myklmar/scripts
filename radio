@@ -1,0 +1,46 @@
+#!/bin/bash
+# mmartin
+# (C) 03/11/2012, Andrea Peluso (http://www.sya54m.eu)
+# 0.1.1 (04/05/2013) - aggiunte nuove webradio
+# 0.2.0 (07/04/2015) - aggiornati url webradio, aggiunto controllo player, cambiato dialogo di chiusura
+
+if [ -x /usr/bin/mplayer ]; then
+  PLAYER="mplayer"
+elif [ -x /usr/bin/cvlc ]; then
+  PLAYER="cvlc"
+else
+  kdialog --error "No player found in the system" --caption aradio --icon kmix
+  exit 1
+fi
+while [ true ]
+do
+  STATION=$(kdialog --radiolist "Select the Radio Station" a "Kiss Kiss" on b "New Jersey Radio" off c "Azure Radio Blues" off d "Smooth Jazz" off e "Classical Radio" off f "Kickin'Country" off g "Best Blues Radio" off h "Funky Blues" off i "Virgin Radio" off j "Radio Caroline" off k "Oldies Radio" off --caption aradio --icon kmix)
+  if [ "$STATION" = "a" ]; then
+    URL="http://wma08.fluidstream.net:4610/"
+  elif [ "$STATION" = "b" ]; then
+    URL="http://8303.live.streamtheworld.com/WKXWFMAAC"
+  elif [ "$STATION" = "c" ]; then
+    URL="http://streaming204.radionomy.com:80/Azur-BLUES"
+  elif [ "$STATION" = "d" ]; then
+    URL="http://streaming207.radionomy.com:80/lovesmoothjazzcom"
+  elif [ "$STATION" = "e" ]; then
+    URL="http://streams.primesite7.com:8000/11Radio-Classical.mp3"
+  elif [ "$STATION" = "f" ]; then
+    URL="http://192.95.36.32:9909/;?icy=http"
+  elif [ "$STATION" = "g" ]; then
+    URL="http://streaming202.radionomy.com:80/BestBluesIKnow"
+  elif [ "$STATION" = "h" ]; then
+    URL="http://streaming203.radionomy.com:80/FunkyBlues"
+  elif [ "$STATION" = "i" ]; then
+    URL="http://shoutcast.unitedradio.it:1301"
+  elif [ "$STATION" = "j" ]; then URL="http://sc3.radiocaroline.net:8030"
+  elif [ "$STATION" = "k" ]; then URL="http://streaming204.radionomy.com:80/OldiesInternetRadioPlus"
+    
+  else
+    kdialog --passivepopup "Thanks for using.\n(C) 2012-2015, Andrea Peluso." --caption aradio --icon kmix
+    exit 0
+  fi
+  $PLAYER $URL &
+  kdialog --msgbox "Press Ok to stop broadcast" --caption aradio --icon kmix
+  killall $PLAYER
+done
