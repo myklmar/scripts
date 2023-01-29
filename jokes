@@ -1,6 +1,10 @@
 #!/bin/bash
 #mmartin.,29/01/23,    Purpose:Print a random joke
 
+################################################################################################
+#place 'jokes.txt' into the directory shown below, or change script to show preffered location.
+#################################################################################################
+
 awk '
 BEGIN{ srand() } 
 rand() * NR < 1 { 
