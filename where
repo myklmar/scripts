@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#mmartin.,24/10/22,Purpose: change directories
+
+echo "where?"
+
+read -r  x
+cd "$x" || exit
+
+ls
+
+$SHELL
+
+exit
+
+
+   

@@ -1,0 +1,30 @@
+#!/bin/bash
+#mmartin.,22/1/23,Purpose: list ip address/connected devices and open ports
+
+# get first 3 octets of network
+ifconfig | grep "broadcast" | cut -d " " -f 10 | cut -d "." -f 1,2,3 > octets.txt
+
+#set variable to have value of octets.txt
+OCTETS=$(cat octets.txt)
+
+#create new .txt file
+echo "" > $OCTETS.txt
+
+#loop
+for ip in {1..254}
+do
+    ping -c 1 $OCTETS.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $OCTETS.txt &
+done
+
+cat $OCTETS.txt
+
+#perform scan
+nmap -sS -iL $OCTETS.txt
+
+
+
+
+exit
+
+
+   
