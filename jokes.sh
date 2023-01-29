@@ -1,5 +1,8 @@
 #!/bin/bash
-#mmartin.,(DATE),    Purpose: 
+#mmartin.,29/01/23,    Purpose: print a random joke 
+##############################################################################################################
+# download 'jokes.txt' and place in same directory as 'jokes.sh' or direct script to location of 'jokes.txt'
+##############################################################################################################
 
 awk '
 BEGIN{ srand() } 
