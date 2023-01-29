@@ -9,7 +9,7 @@ BEGIN{ srand() }
 rand() * NR < 1 { 
     line = $0 
 } 
-END { print line }' jokes.txt
+END { print line }' jokes.txt  #~/Documents/VariousTexts/jokes.txt
 
 
 
